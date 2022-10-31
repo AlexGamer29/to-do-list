@@ -1,55 +1,28 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import Home from "./Home/Home";
 
-export default function App() {
-  return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
+import MaketodoList from "./MaketodoList/MaketodoList";
+import TodoList from "./TodoList/TodoList";
+import Reminders from "./Reminders/Reminders";
+import Calendar from "./Calendar/Calendar";
+import Collaboration from "./Collaboration/Collaboration";
 
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
-  );
-}
+import Explore from "./Explore/Explore";
+import Learn from "./Learn/Learn";
+import About from "./About/About";
 
-function Home() {
-  return <h2>Home</h2>;
-}
+import Login from "./Login/Login";
+import SignUp from "./SignUp/SignUp";
 
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
-}
+export {
+  Home,
+  MaketodoList,
+  TodoList,
+  Reminders,
+  Calendar,
+  Collaboration,
+  Explore,
+  Learn,
+  About,
+  Login,
+  SignUp,
+};
