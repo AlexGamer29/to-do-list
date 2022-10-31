@@ -1,100 +1,98 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
+import { Button, Dropdown } from "../index";
+import { Link } from "react-router-dom";
+import images from "../../constants/images";
+
 import "./NavBar.css";
-import { images } from "../../constants";
 
 function NavBar() {
   const [click, setClick] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
 
   const handleClick = () => setClick(!click);
+  const closeMobileMenu = () => setClick(false);
 
-  const [color, setColor] = useState("FFE366");
+  const onMouseEnter = () => {
+    if(window.innerWidth < 960) {
+      setDropdown(false);
+    } else {
+      setDropdown(true);
+    }
+  };
 
-  document.body.style.backgroundColor = color;
+  const onMouseLeave = () => {
+    if(window.innerWidth < 960) {
+      setDropdown(false);
+    } else {
+      setDropdown(false);
+    }
+  };
 
   return (
-    <div >
-        <nav className="navbar">
-          <div className="nav-container">
-            <NavLink exact to="/" className="nav-logo">
-              <img src={images.logo} alt="logo" className="biden-logo" />
-            </NavLink>
-
-            <ul className={click ? "nav-menu active" : "nav-menu"}>
-              <li className="nav-item">
-                <NavLink
-                  exact
-                  to="/make-todolist"
-                  activeClassName="active"
-                  className="nav-links"
-                  onClick={() => { handleClick(); setColor("FFE366"); }}
-                >
-                  Make todoList
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  exact
-                  to="/explore"
-                  activeClassName="active"
-                  className="nav-links"
-                  onClick={() => { handleClick(); setColor("FFE366"); }}
-                >
-                  Explore
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  exact
-                  to="/learn"
-                  activeClassName="active"
-                  className="nav-links"
-                  onClick={() => { handleClick(); setColor("FFE366"); }}
-                >
-                  Learn
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  exact
-                  to="/about"
-                  activeClassName="active"
-                  className="nav-links"
-                  onClick={() => { handleClick(); setColor("FFE366"); }}
-                >
-                  About
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  exact
-                  to="/login"
-                  activeClassName="active"
-                  className="nav-links"
-                  onClick={() => { handleClick(); setColor("FFE366"); }}
-                >
-                  Login
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  exact
-                  to="/sign-up"
-                  activeClassName="active"
-                  className="nav-links"
-                  onClick={() => { handleClick(); setColor("FFE366"); }}
-                >
-                  Sign up
-                </NavLink>
-              </li>
-            </ul>
-            <div className="nav-icon" onClick={handleClick}>
-              <i className={click ? "fas fa-times" : "fas fa-bars"}></i>
-            </div>
+    <>
+      <nav className="navbar">
+        <Link to="/">
+          <div className="navbar-logo">
+            <img src={images.logo} alt="" className="logo" />
           </div>
-        </nav>
-        
-    </div>
+        </Link>
+
+        <div className="menu-icon" onClick={handleClick}>
+          <i className={click ? "fas fa-times" : "fas fa-bars"} />
+        </div>
+
+        <ul className={click ? "nav-menu active" : "nav-menu"}>
+          <li className="nav-item"
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+          >
+            <Link
+              to="/make-todolist"
+              className="nav-links"
+              onClick={closeMobileMenu}
+            >
+              Make todoList <i className="fas fa-caret-down" />
+            </Link>
+            {dropdown && <Dropdown />}
+          </li>
+          <li className="nav-item">
+            <Link to="/explore" className="nav-links" onClick={closeMobileMenu}>
+              Explore
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/learn" className="nav-links" onClick={closeMobileMenu}>
+              Learn
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/about" className="nav-links" onClick={closeMobileMenu}>
+              About
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              to="/login"
+              className="nav-links-mobile"
+              onClick={closeMobileMenu}
+            >
+              Login
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              to="/sign-up"
+              className="nav-links-mobile"
+              onClick={closeMobileMenu}
+            >
+              Sign Up
+            </Link>
+          </li>
+        </ul>
+        <Button />
+        <Button />
+      </nav>
+    </>
   );
 }
 
