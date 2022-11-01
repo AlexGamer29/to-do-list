@@ -1,4 +1,5 @@
 .app__homepage {
     display: flex;
-    height: 90vh;
+    flex-direction: column;
+    justify-content: center;
 }
