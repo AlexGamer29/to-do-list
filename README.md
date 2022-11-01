@@ -1,3 +1,5 @@
+[![CodeQL](https://github.com/AlexGamer29/to-do-list/actions/workflows/codeql.yml/badge.svg)](https://github.com/AlexGamer29/to-do-list/actions/workflows/codeql.yml)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
