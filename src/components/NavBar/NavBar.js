@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button, Dropdown } from "../index";
 import { Link } from "react-router-dom";
+import { SignUpButton, LoginButton, Dropdown } from "../index.js";
 import images from "../../constants/images";
 
 import "./NavBar.css";
@@ -13,7 +13,7 @@ function NavBar() {
   const closeMobileMenu = () => setClick(false);
 
   const onMouseEnter = () => {
-    if(window.innerWidth < 960) {
+    if (window.innerWidth < 960) {
       setDropdown(false);
     } else {
       setDropdown(true);
@@ -21,7 +21,7 @@ function NavBar() {
   };
 
   const onMouseLeave = () => {
-    if(window.innerWidth < 960) {
+    if (window.innerWidth < 960) {
       setDropdown(false);
     } else {
       setDropdown(false);
@@ -42,9 +42,10 @@ function NavBar() {
         </div>
 
         <ul className={click ? "nav-menu active" : "nav-menu"}>
-          <li className="nav-item"
-              onMouseEnter={onMouseEnter}
-              onMouseLeave={onMouseLeave}
+          <li
+            className="nav-item"
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
           >
             <Link
               to="/make-todolist"
@@ -89,8 +90,11 @@ function NavBar() {
             </Link>
           </li>
         </ul>
-        <Button />
-        <Button />
+        <div className="nav-authorization-area">
+          <SignUpButton />
+          <div class="divider" />
+          <LoginButton />
+        </div>
       </nav>
     </>
   );
