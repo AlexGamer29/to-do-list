@@ -25,3 +25,9 @@ div.btn__container {
   transition: all 0.2s ease-out 0s;
   background-color: transparent;
 }
+
+.btn__signup:active {
+  color: #8d0726;
+  transition: all 0.2s ease-in-out 0s;
+  background-color: transparent;
+}
