@@ -69,3 +69,31 @@ div.header__title-secondary p {
   max-width: 80%;
   height: auto !important;
 }
+
+div.app__header-customer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  padding: 0 3em;
+  margin: 0 auto;
+  padding-bottom: 4em;
+}
+
+.customer__title-primary {
+  padding-bottom: 1em;
+}
+
+.customer-list {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.fa-brands {
+  color: #b2b2b2;
+  font-size: 4.5rem;
+}
