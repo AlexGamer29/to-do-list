@@ -1,5 +1,6 @@
 import React from "react";
 import "./Header.css";
+import { images } from "../../../constants/index";
 
 const Header = () => {
   return (
@@ -20,7 +21,7 @@ const Header = () => {
         </div>
         <div className="app__header-img">
           <img
-            src={"https://www.any.do/v5/images/home/hero-image.webp"}
+            src={images.headerImage}
             alt=""
           ></img>
         </div>
