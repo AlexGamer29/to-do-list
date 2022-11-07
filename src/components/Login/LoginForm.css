@@ -12,7 +12,7 @@ div#login__form__container {
 }
 
 div#form__container {
-  max-width: 100vw;
+  max-width: 80vw;
   display: flex;
   flex-direction: column;
 }
@@ -51,7 +51,7 @@ input {
 }
 
 button#signin {
-  padding: 8px 20px;
+  padding: 6px 18px;
   border-radius: 4px;
   outline: none;
   border: none;
@@ -68,4 +68,19 @@ button#signin:active {
   color: #fff;
   border-radius: 4px;
   border: 2px solid #1888ff;
+}
+
+span.form__error {
+  font-size: 0.85rem;
+  text-align: left;
+  color: red;
+  display: block;
+}
+
+input:invalid[focused="true"] {
+  border: 1px solid red;
+}
+
+input:invalid[focused="true"] ~ span.form__error {
+  display: block;
 }
