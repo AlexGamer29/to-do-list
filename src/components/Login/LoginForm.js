@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 import "./LoginForm.css";
 
