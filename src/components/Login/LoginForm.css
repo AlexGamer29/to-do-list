@@ -84,6 +84,7 @@ div#eyes__password {
 .fa-eye,
 .fa-eye-slash {
   position: relative;
+  transition: all 0.5s ease-out;
 }
 
 .fa-regular form {
