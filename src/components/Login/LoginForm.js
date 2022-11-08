@@ -39,6 +39,12 @@ export default function LoginForm() {
     reset();
   };
 
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
+
   return (
     <>
       <div id="login__form__container">
@@ -54,6 +60,7 @@ export default function LoginForm() {
                 </h3>
                 <input
                   id="form__email-input"
+                  className="form__input"
                   placeholder="Email"
                   type="email"
                   name="email"
@@ -74,22 +81,34 @@ export default function LoginForm() {
                 <h3 id="form__password-title" className="form__field-title">
                   Password
                 </h3>
-                <span>
-                  <input
-                    id="form__password-input"
-                    placeholder="Password"
-                    type="password"
-                    name="password"
-                    {...register("password", {
-                      required: true,
-                      minLength: 8,
-                      maxLength: 30,
-                      pattern: /[a-zA-Z]/,
-                    })}
-                  />
-                  <i class="fa-regular fa-eye" />
-                  <i class="fa-regular fa-eye-slash" />
-                </span>
+                <div id="form__password-container">
+                  <div id="form__password__sub-container">
+                    <div id="form__password__input-container">
+                      <span id="form__password__input">
+                        <input
+                          id="form__password-input"
+                          className="form__input"
+                          placeholder="Password"
+                          type={passwordShown ? "text" : "password"}
+                          name="password"
+                          {...register("password", {
+                            required: true,
+                            minLength: 8,
+                            maxLength: 30,
+                            pattern: /[a-zA-Z]/,
+                          })}
+                        />
+                        <div id="eyes__password">
+                          <i onClick={togglePasswordVisiblity} class={passwordShown ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"} />
+                        </div>
+
+                      </span>
+
+                    </div>
+                  </div>
+
+                </div>
+
                 {errors?.password?.type === "required" && (
                   <span className="form__error">This field is required</span>
                 )}
