@@ -40,9 +40,14 @@ export default function SignUpForm() {
   };
 
   const [passwordShown, setPasswordShown] = useState(false);
+  const [agreeTerms, setAgreeTerms] = useState(false);
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
+  };
+
+  const checkAgreeTerms = () => {
+    setAgreeTerms(agreeTerms ? false : true);
   };
 
   return (
@@ -182,8 +187,24 @@ export default function SignUpForm() {
                   </span>
                 )}
               </div>
+              <div id="form__agree__terms" className="form__item">
+                <div id="checkbox__btn">
+                  <input
+                    type="checkbox"
+                    name="terms"
+                    onClick={checkAgreeTerms}
+                  />
+                </div>
+                <div id="form__agree__terms-header">
+                  I agree to Terms & Conditions and Privacy Policy
+                </div>
+              </div>
               <div id="form__signup-btn" className="form__item">
-                <button id="signup" type="submit">
+                <button
+                  id="signup"
+                  type="submit"
+                  disabled={agreeTerms ? false : true}
+                >
                   Sign up
                 </button>
               </div>
