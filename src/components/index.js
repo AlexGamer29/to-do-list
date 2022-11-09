@@ -9,5 +9,7 @@ import Header from "./Home/Header/Header";
 
 //Login
 import LoginForm from "./Login/LoginForm";
+//Sign Up
+import SignUpForm from "./SignUp/SignUpForm";
 
-export { NavBar, SignUpButton, LoginButton, Dropdown, Header, LoginForm };
+export { NavBar, SignUpButton, LoginButton, Dropdown, Header, LoginForm, SignUpForm };
