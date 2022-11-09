@@ -147,3 +147,22 @@ input:invalid[focused="true"] {
 input:invalid[focused="true"]~span.form__error {
   display: block;
 }
+
+div#form__login-btn {
+  width: auto;
+  display: flex;
+  text-align: center;
+}
+
+button#signin {
+  padding: 0.75rem 0.5rem;
+  outline: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+div#form__to-signup {
+  height: 20px;
+  padding-bottom: 3.5rem;
+}
