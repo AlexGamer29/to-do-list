@@ -138,7 +138,7 @@ export default function LoginForm() {
                   Sign in
                 </button>
               </div>
-              <div id="form__to-signup" className="form__item">
+              <div id="form__to-signup">
                 <span>
                   Don't have an account? <Link to="/sign-up">Sign up now</Link>
                 </span>
