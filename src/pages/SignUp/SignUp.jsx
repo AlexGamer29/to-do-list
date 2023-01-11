@@ -1,13 +1,16 @@
-import React from 'react'
-import { SignUpForm } from '../../components'
-import "./SignUp.css"
+import React from "react";
+import { SignUpForm } from "../../components";
+import Layout from "../Layout/Layout";
+import "./SignUp.css";
 
 const SignUp = () => {
   return (
-    <div className="app__signup">
-      <SignUpForm />
-    </div>
-  )
-}
+    <Layout renderHeaderAndFooter={false}>
+      <div className="app__signup">
+        <SignUpForm />
+      </div>
+    </Layout>
+  );
+};
 
-export default SignUp
+export default SignUp;

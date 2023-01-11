@@ -54,7 +54,7 @@ function NavBar() {
             >
               Make todoList <i className="fas fa-caret-down" />
             </Link>
-            {dropdown && <Dropdown />}
+            {dropdown && <Dropdown />} 
           </li>
           <li className="nav-item">
             <Link to="/explore" className="nav-links" onClick={closeMobileMenu}>

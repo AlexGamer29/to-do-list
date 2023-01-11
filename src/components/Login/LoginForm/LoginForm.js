@@ -1,31 +1,20 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../../utils/contexts/AuthContext";
 // import * as Yup from "yup";
 
 import "./LoginForm.css";
+import { signIn } from "../../../hooks/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 export default function LoginForm() {
-  // const emailRef = useRef();
-  // const passwordRef = useRef();
-  // // const { login } = useAuth();
-  // const [error, setError] = useState("");
-  // const [loading, setLoading] = useState(false);
-  // const history = useNavigate();
-
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-
-  //   try {
-  //     setError("");
-  //     setLoading(true);
-  //     history.push("/");
-  //   } catch {
-  //     setError("Failed to log in");
-  //   }
-
-  //   setLoading(false);
-  // }
+  const { login } = useAuth();
+  const dispatch = useDispatch();
+  const history = useNavigate();
+  const { loading, userInfo, error } = useSelector((state) => state.user);
 
   const {
     register,
@@ -34,10 +23,36 @@ export default function LoginForm() {
     formState: { errors, isSubmitSuccessful },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    reset();
+  const onhandleSubmit = async (data, e) => {
+    const id = toast.loading("Please wait...");
+    try {
+      const payload = {
+        email: data.email,
+        password: data.password,
+      };
+      const signInResult = await dispatch(signIn(payload));
+      toast.update(id, {
+        render: "Sign in successfully",
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
+      unwrapResult(signInResult); // MUST HAVE THIS LINE TO CATCH ERROR
+    } catch (error) {
+      toast.update(id, {
+        render: `(${error.code})`,
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
+    }
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      history("/dashboard");
+    }
+  }, [history, userInfo]);
 
   const [passwordShown, setPasswordShown] = useState(false);
 
@@ -50,7 +65,7 @@ export default function LoginForm() {
       <div id="login__form__container">
         <div id="form__container">
           <div id="form__container__wrap">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onhandleSubmit)}>
               <div id="form__header" className="form__item">
                 <h1 id="form__header-primary">Sign in to TodoList</h1>
               </div>
@@ -99,16 +114,19 @@ export default function LoginForm() {
                           })}
                         />
                         <div id="eyes__password">
-                          <i onClick={togglePasswordVisiblity} class={passwordShown ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"} />
+                          <i
+                            onClick={togglePasswordVisiblity}
+                            class={
+                              passwordShown
+                                ? "fa-regular fa-eye-slash"
+                                : "fa-regular fa-eye"
+                            }
+                          />
                         </div>
-
                       </span>
-
                     </div>
                   </div>
-
                 </div>
-
                 {errors?.password?.type === "required" && (
                   <span className="form__error">This field is required</span>
                 )}

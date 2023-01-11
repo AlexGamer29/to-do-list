@@ -1,10 +1,10 @@
 import React from "react";
-import "./Header.css";
+import "./HomeHeader.css";
 import { images } from "../../../constants/index";
 
-const Header = () => {
+const HomeHeader = () => {
   return (
-    <div className="app__header">
+    <div className="home__header">
       <div className="app__header-info">
         <div className="header__title">
           <div className="header__title-primary">
@@ -38,4 +38,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HomeHeader;

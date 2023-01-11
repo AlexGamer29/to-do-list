@@ -1,6 +1,6 @@
 export const MenuItem = [
   {
-    title: "To-do list",
+    title: "Trang chủ",
     path: "/to-do-list",
     cName: "dropdown-link",
   },

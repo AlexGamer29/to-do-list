@@ -13,6 +13,11 @@ import About from "./About/About";
 import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
 
+import DashboardMain from "./DashboardMain/DashboardMain";
+
+import UserProfile from "./UserProfile/UserProfile";
+import ChangePassword from "./ChangePassword/ChangePassword";
+
 export {
   Home,
   MaketodoList,
@@ -25,4 +30,7 @@ export {
   About,
   Login,
   SignUp,
+  DashboardMain,
+  UserProfile,
+  ChangePassword,
 };

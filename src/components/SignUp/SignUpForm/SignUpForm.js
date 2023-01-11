@@ -1,43 +1,19 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-// import * as Yup from "yup";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./SignUpForm.css";
+import { useDispatch, useSelector } from "react-redux";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { signUp } from "../../../hooks/authSlice";
 
 export default function SignUpForm() {
-  // const emailRef = useRef();
-  // const passwordRef = useRef();
-  // // const { login } = useAuth();
-  // const [error, setError] = useState("");
-  // const [loading, setLoading] = useState(false);
-  // const history = useNavigate();
-
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-
-  //   try {
-  //     setError("");
-  //     setLoading(true);
-  //     history.push("/");
-  //   } catch {
-  //     setError("Failed to log in");
-  //   }
-
-  //   setLoading(false);
-  // }
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitSuccessful },
-  } = useForm();
-
-  const onSubmit = (data) => {
-    console.log(data);
-    reset();
-  };
+  const { loading, userInfo, error, success } = useSelector(
+    (state) => state.user
+  );
+  const dispatch = useDispatch();
+  const history = useNavigate();
 
   const [passwordShown, setPasswordShown] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
@@ -50,12 +26,61 @@ export default function SignUpForm() {
     setAgreeTerms(agreeTerms ? false : true);
   };
 
+  const notify = {
+    success: "User Created Successfully",
+    error: "Failed to create an account ",
+  };
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm();
+
+  const onhandleSubmit = async (data, e) => {
+    e.preventDefault();
+    const id = toast.loading("Please wait...");
+    try {
+      const payload = {
+        email: data.email,
+        password: data.password,
+      };
+      console.log(payload);
+      const registerResult = await dispatch(signUp(payload));
+      toast.update(id, {
+        render: notify.success,
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
+      unwrapResult(registerResult); // MUST HAVE THIS LINE TO CATCH ERROR
+    } catch (error) {
+      toast.update(id, {
+        render: notify.error + `(${error.code})`,
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
+      console.log(error.code + error);
+    }
+    setAgreeTerms(false);
+    reset();
+  };
+
+  useEffect(() => {
+    // redirect user to login page if registration was successful
+    if (success) history("/login");
+    // redirect authenticated user to profile screen
+    if (userInfo) history("/dashboard");
+  }, [history, userInfo, success]);
+
   return (
     <>
       <div id="signup__form__container">
         <div id="form__container">
           <div id="form__container__wrap">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onhandleSubmit)}>
               <div id="form__header">
                 <h1 id="form__header-primary">Create an account</h1>
               </div>
@@ -64,51 +89,7 @@ export default function SignUpForm() {
                   Required fields have an asterisk: <span id="asterisk">*</span>{" "}
                 </h4>
               </div>
-              <div id="form__names-container" className="form__item">
-                <div id="firstname__container">
-                  <div id="firstname__container__wrap">
-                    <h3
-                      id="form__firstname-title"
-                      className="form__field-title"
-                    >
-                      First name*
-                    </h3>
-                    <input
-                      id="form__firstname-input"
-                      className="form__input"
-                      placeholder="Firstname"
-                      type="text"
-                      name="firstname"
-                      {...register("firstname", {
-                        required: true,
-                      })}
-                    />
-                  </div>
-                  {errors?.firstname?.type === "required" && (
-                    <span className="form__error">This field is required</span>
-                  )}
-                </div>
-                <div id="lastname__container">
-                  <div id="lastname__container__wrap">
-                    <h3 id="form__lastname-title" className="form__field-title">
-                      Last name*
-                    </h3>
-                    <input
-                      id="form__lastname-input"
-                      className="form__input"
-                      placeholder="Lastname"
-                      type="text"
-                      name="lastname"
-                      {...register("lastname", {
-                        required: true,
-                      })}
-                    />
-                  </div>
-                  {errors?.lastname?.type === "required" && (
-                    <span className="form__error">This field is required</span>
-                  )}
-                </div>
-              </div>
+              <div className="field__signup"></div>
               <div id="form__email" className="form__item">
                 <h3 id="form__email-title" className="form__field-title">
                   Email*
@@ -167,7 +148,6 @@ export default function SignUpForm() {
                     </div>
                   </div>
                 </div>
-
                 {errors?.password?.type === "required" && (
                   <span className="form__error">This field is required</span>
                 )}
@@ -200,11 +180,7 @@ export default function SignUpForm() {
                 </div>
               </div>
               <div id="form__signup-btn" className="form__item">
-                <button
-                  id="signup"
-                  type="submit"
-                  disabled={agreeTerms ? false : true}
-                >
+                <button id="signup" disabled={agreeTerms ? false : true}>
                   Sign up
                 </button>
               </div>
